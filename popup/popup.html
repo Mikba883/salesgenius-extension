@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SalesGenius</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <div class="popup-header">
+      <div class="logo">
+        <span class="logo-icon">🎯</span>
+        <span class="logo-text">SalesGenius</span>
+      </div>
+      <div class="version">v2.0</div>
+    </div>
+
+    <!-- Status Section -->
+    <div class="status-section" id="status-section">
+      <div class="status-indicator" id="status-indicator">
+        <span class="status-dot"></span>
+        <span class="status-text">Checking status...</span>
+      </div>
+    </div>
+
+    <!-- Auth Section (nascosto se autenticato) -->
+    <div class="auth-section" id="auth-section" style="display: none;">
+      <div class="auth-icon">🔐</div>
+      <h3>Welcome to SalesGenius!</h3>
+      <p>Sign in to start getting AI-powered coaching during your sales calls.</p>
+      <button class="btn btn-primary" id="login-btn">
+        Sign In
+      </button>
+    </div>
+
+    <!-- Premium Required Section -->
+    <div class="premium-section" id="premium-section" style="display: none;">
+      <div class="premium-icon">⭐</div>
+      <h3>Premium Required</h3>
+      <p>Upgrade to Premium to unlock real-time AI coaching and unlimited suggestions.</p>
+      <button class="btn btn-primary" id="upgrade-btn">
+        Upgrade Now
+      </button>
+    </div>
+
+    <!-- Main Section (quando tutto ok) -->
+    <div class="main-section" id="main-section" style="display: none;">
+      <!-- Quick Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">⏱</div>
+          <div class="stat-value" id="session-duration">00:00</div>
+          <div class="stat-label">Duration</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">💡</div>
+          <div class="stat-value" id="tips-count">0</div>
+          <div class="stat-label">Tips Today</div>
+        </div>
+      </div>
+
+      <!-- Current Platform -->
+      <div class="platform-info" id="platform-info" style="display: none;">
+        <div class="platform-label">Active on:</div>
+        <div class="platform-name" id="platform-name">-</div>
+      </div>
+
+      <!-- Recording Status -->
+      <div class="recording-status" id="recording-status" style="display: none;">
+        <div class="recording-indicator">
+          <span class="recording-pulse"></span>
+          <span>Recording in progress...</span>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="info-section">
+        <h4>💡 How it works</h4>
+        <ol class="info-list">
+          <li>Join a video call on Zoom, Meet, or Teams</li>
+          <li>Click the SalesGenius floating widget</li>
+          <li>Start recording to get real-time AI tips</li>
+          <li>Receive coaching suggestions during the call</li>
+        </ol>
+      </div>
+
+      <!-- Supported Platforms -->
+      <div class="platforms-section">
+        <h4>🎥 Supported Platforms</h4>
+        <div class="platforms-grid">
+          <div class="platform-chip">Zoom</div>
+          <div class="platform-chip">Google Meet</div>
+          <div class="platform-chip">MS Teams</div>
+          <div class="platform-chip">Webex</div>
+          <div class="platform-chip">Whereby</div>
+          <div class="platform-chip">Jitsi</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="popup-footer">
+      <a href="#" id="help-link" class="footer-link">Help</a>
+      <span class="separator">•</span>
+      <a href="#" id="privacy-link" class="footer-link">Privacy</a>
+      <span class="separator">•</span>
+      <a href="#" id="logout-link" class="footer-link">Logout</a>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

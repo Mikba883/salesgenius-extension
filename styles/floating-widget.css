@@ -1,0 +1,729 @@
+/* styles/floating-widget.css - v2.0 IMPROVED */
+/* ✅ Fixed: Better contrast, larger icons, improved dark theme */
+
+/* Variabili per i temi */
+:root {
+  --sg-primary: #6366f1;
+  --sg-primary-dark: #4f46e5;
+  --sg-secondary: #8b5cf6;
+  --sg-success: #10b981;
+  --sg-warning: #f59e0b;
+  --sg-danger: #ef4444;
+  
+  /* Tema Chiaro (default) - IMPROVED CONTRAST */
+  --sg-bg-primary: #ffffff;
+  --sg-bg-secondary: #f1f5f9;
+  --sg-bg-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --sg-text-primary: #0f172a; /* ✅ Più scuro per contrasto */
+  --sg-text-secondary: #475569; /* ✅ Più scuro */
+  --sg-text-light: #64748b;
+  --sg-border: #e2e8f0;
+  --sg-shadow: rgba(0, 0, 0, 0.1);
+  --sg-shadow-strong: rgba(0, 0, 0, 0.2);
+}
+
+/* Tema Scuro - IMPROVED */
+[data-theme="dark"] {
+  --sg-bg-primary: #0f172a; /* ✅ Più scuro */
+  --sg-bg-secondary: #1e293b;
+  --sg-bg-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  --sg-text-primary: #f8fafc; /* ✅ Più chiaro */
+  --sg-text-secondary: #cbd5e1;
+  --sg-text-light: #94a3b8;
+  --sg-border: #334155;
+  --sg-shadow: rgba(0, 0, 0, 0.5);
+  --sg-shadow-strong: rgba(0, 0, 0, 0.7);
+}
+
+/* Container principale - SEMPRE VISIBILE */
+#salesgenius-widget {
+  position: fixed !important;
+  bottom: 20px;
+  right: 20px;
+  z-index: 2147483647 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  cursor: move;
+  user-select: none;
+}
+
+/* Migliora il drag - movimento fluido */
+#salesgenius-widget.dragging {
+  cursor: grabbing !important;
+  transition: none;
+  opacity: 0.95;
+}
+
+#salesgenius-widget:active {
+  cursor: grabbing;
+}
+
+.sg-widget-container {
+  background: var(--sg-bg-gradient);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px var(--sg-shadow-strong), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sg-widget-container:hover {
+  box-shadow: 0 25px 70px var(--sg-shadow-strong), 0 0 0 1px rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Header minimizzato con ICONA */
+.sg-minimized-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  gap: 12px;
+  cursor: move;
+  user-select: none;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+/* Header più scuro nel tema dark per leggibilità */
+[data-theme="dark"] .sg-minimized-header {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(20px);
+}
+
+.sg-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ✅ ICONA del widget - BIGGER SIZE */
+.sg-icon {
+  width: 28px; /* ✅ Aumentata da 24px */
+  height: 28px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.4));
+}
+
+/* Icona durante recording */
+.recording .sg-icon {
+  animation: recordingPulse 2s ease-in-out infinite;
+}
+
+@keyframes recordingPulse {
+  0%, 100% { 
+    transform: scale(1);
+    filter: drop-shadow(0 3px 8px rgba(239, 68, 68, 0.5));
+  }
+  50% { 
+    transform: scale(1.15); /* ✅ Aumentato pulse */
+    filter: drop-shadow(0 5px 15px rgba(239, 68, 68, 0.8));
+  }
+}
+
+.sg-brand {
+  color: white;
+  font-weight: 700;
+  font-size: 16px; /* ✅ Aumentato da 15px */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.3px;
+}
+
+/* Pulsanti header - IMPROVED */
+.sg-header-btn {
+  background: rgba(255, 255, 255, 0.2); /* ✅ Più visibile */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  width: 34px; /* ✅ Leggermente più grande */
+  height: 34px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 16px; /* ✅ Aumentato */
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+}
+
+.sg-header-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.sg-header-btn:active {
+  transform: translateY(0);
+}
+
+/* Stato espanso */
+.salesgenius-expanded .sg-widget-container {
+  width: 420px; /* ✅ Leggermente più largo */
+  max-height: 700px;
+}
+
+.salesgenius-minimized .sg-widget-container {
+  width: auto;
+}
+
+/* Header espanso - IMPROVED */
+.sg-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px; /* ✅ Più padding */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  cursor: move;
+  user-select: none;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.15); /* ✅ Bordo più spesso */
+}
+
+[data-theme="dark"] .sg-header {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.sg-logo-full {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* ✅ ICONA LARGE - BIGGER */
+.sg-icon-large {
+  width: 48px; /* ✅ Aumentata da 40px */
+  height: 48px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+}
+
+.recording .sg-icon-large {
+  animation: recordingPulse 2s ease-in-out infinite;
+}
+
+.sg-title {
+  color: white;
+  font-size: 20px; /* ✅ Aumentato */
+  font-weight: 700;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.4px;
+}
+
+.sg-subtitle {
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 14px; /* ✅ Aumentato */
+  margin-top: 3px;
+  font-weight: 500;
+}
+
+.sg-header-actions {
+  display: flex;
+  gap: 10px; /* ✅ Più spazio */
+  align-items: center;
+}
+
+/* Toggle Tema Chiaro/Scuro - IMPROVED */
+.sg-theme-toggle {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  width: 38px; /* ✅ Più grande */
+  height: 38px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 20px; /* ✅ Emoji più grande */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+}
+
+.sg-theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: rotate(180deg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Pulsante X per chiudere - IMPROVED */
+.sg-close-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 24px; /* ✅ X più grande */
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+}
+
+.sg-close-btn:hover {
+  background: rgba(239, 68, 68, 0.9);
+  border-color: rgba(239, 68, 68, 1);
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.5);
+}
+
+/* Contenuto espanso - IMPROVED CONTRAST */
+.sg-expanded-content {
+  background: var(--sg-bg-primary);
+  padding: 24px;
+  max-height: 600px;
+  overflow-y: auto;
+  transition: background-color 0.3s ease;
+}
+
+/* Controlli */
+.sg-controls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.sg-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 24px; /* ✅ Più padding */
+  border: none;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 16px; /* ✅ Aumentato */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px var(--sg-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.sg-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.15);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.sg-btn:hover::before {
+  opacity: 1;
+}
+
+.sg-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px var(--sg-shadow-strong);
+}
+
+.sg-btn:active {
+  transform: translateY(-1px);
+}
+
+.sg-btn-primary {
+  background: linear-gradient(135deg, var(--sg-primary) 0%, var(--sg-secondary) 100%);
+  color: white;
+}
+
+.sg-btn-danger {
+  background: linear-gradient(135deg, #f87171 0%, var(--sg-danger) 100%);
+  color: white;
+}
+
+.sg-btn-icon {
+  font-size: 20px; /* ✅ Icona più grande */
+}
+
+/* Statistiche - IMPROVED */
+.sg-stats {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.sg-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* ✅ Più spazio */
+  padding: 18px; /* ✅ Più padding */
+  background: var(--sg-bg-secondary);
+  border-radius: 16px;
+  box-shadow: 0 3px 10px var(--sg-shadow);
+  border: 2px solid var(--sg-border); /* ✅ Bordo più spesso */
+  transition: all 0.3s ease;
+}
+
+.sg-stat:hover {
+  transform: translateY(-3px); /* ✅ Effetto più pronunciato */
+  box-shadow: 0 6px 20px var(--sg-shadow-strong);
+  border-color: var(--sg-primary);
+}
+
+/* ✅ ICONE STATS - BIGGER & WHITE in dark mode */
+.sg-stat-icon {
+  font-size: 32px; /* ✅ Molto più grande! */
+  filter: drop-shadow(0 2px 4px var(--sg-shadow));
+}
+
+/* Assicura visibilità emoji in dark mode */
+[data-theme="dark"] .sg-stat-icon {
+  filter: drop-shadow(0 2px 6px rgba(255, 255, 255, 0.3)) brightness(1.3);
+}
+
+.sg-stat-value {
+  font-weight: 800;
+  font-size: 26px; /* ✅ Aumentato */
+  color: var(--sg-text-primary);
+  transition: color 0.3s ease;
+  line-height: 1;
+}
+
+.sg-stat-label {
+  font-size: 13px; /* ✅ Leggermente più grande */
+  color: var(--sg-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 700; /* ✅ Bold */
+  transition: color 0.3s ease;
+}
+
+/* Sezione Tips */
+.sg-tips-section {
+  border-top: 2px solid var(--sg-border);
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.sg-tips-header {
+  font-weight: 700;
+  font-size: 16px; /* ✅ Aumentato */
+  color: var(--sg-text-primary);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: color 0.3s ease;
+}
+
+.sg-tips-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.sg-tips-empty {
+  text-align: center;
+  padding: 32px 20px;
+  color: var(--sg-text-light);
+  font-size: 15px; /* ✅ Aumentato */
+  transition: color 0.3s ease;
+}
+
+.sg-tip-item {
+  background: var(--sg-bg-secondary);
+  padding: 16px 18px; /* ✅ Più padding */
+  border-radius: 12px;
+  border-left: 4px solid var(--sg-primary);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px var(--sg-shadow);
+}
+
+.sg-tip-item:hover {
+  transform: translateX(6px); /* ✅ Slide più pronunciato */
+  box-shadow: 0 4px 16px var(--sg-shadow-strong);
+  border-left-width: 6px;
+}
+
+.sg-tip-new {
+  animation: tipSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-left-color: var(--sg-warning);
+}
+
+[data-theme="dark"] .sg-tip-new {
+  background: linear-gradient(135deg, #422006 0%, #713f12 100%);
+}
+
+@keyframes tipSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(40px); /* ✅ Slide più pronunciato */
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.sg-tip-category {
+  font-size: 12px; /* ✅ Aumentato */
+  text-transform: uppercase;
+  color: var(--sg-primary);
+  font-weight: 800;
+  margin-bottom: 8px; /* ✅ Più spazio */
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+.sg-tip-text {
+  color: var(--sg-text-primary);
+  font-size: 15px; /* ✅ Aumentato */
+  line-height: 1.6;
+  margin-bottom: 8px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.sg-tip-time {
+  font-size: 12px; /* ✅ Aumentato */
+  color: var(--sg-text-light);
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+/* Suggerimento in streaming */
+.sg-tip-streaming {
+  border-left-color: #3b82f6 !important;
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+}
+
+[data-theme="dark"] .sg-tip-streaming {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+}
+
+.sg-tip-streaming-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #3b82f6;
+  border-radius: 50%;
+  animation: pulse 1s infinite;
+  margin-left: 8px;
+}
+
+/* Messaggi */
+.sg-message {
+  padding: 16px 18px; /* ✅ Più padding */
+  border-radius: 12px;
+  font-size: 15px; /* ✅ Aumentato */
+  margin-top: 16px;
+  text-align: center;
+  font-weight: 600;
+  box-shadow: 0 3px 10px var(--sg-shadow);
+  line-height: 1.5;
+}
+
+.sg-message a {
+  color: inherit;
+  text-decoration: underline;
+  font-weight: 700;
+}
+
+.sg-message-info {
+  background: #dbeafe;
+  color: #1e40af;
+  border-left: 4px solid #3b82f6;
+}
+
+[data-theme="dark"] .sg-message-info {
+  background: #1e3a8a;
+  color: #bfdbfe;
+}
+
+.sg-message-success {
+  background: #d1fae5;
+  color: #065f46;
+  border-left: 4px solid var(--sg-success);
+}
+
+[data-theme="dark"] .sg-message-success {
+  background: #064e3b;
+  color: #a7f3d0;
+}
+
+.sg-message-warning {
+  background: #fef3c7;
+  color: #92400e;
+  border-left: 4px solid var(--sg-warning);
+}
+
+[data-theme="dark"] .sg-message-warning {
+  background: #713f12;
+  color: #fde68a;
+}
+
+.sg-message-error {
+  background: #fee2e2;
+  color: #991b1b;
+  border-left: 4px solid var(--sg-danger);
+}
+
+[data-theme="dark"] .sg-message-error {
+  background: #7f1d1d;
+  color: #fecaca;
+}
+
+/* Warning specifico per screen share */
+.sg-screen-share-warning {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2147483647;
+  max-width: 500px;
+  padding: 18px 22px;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+  border-radius: 14px;
+  box-shadow: 0 12px 48px rgba(245, 158, 11, 0.5);
+  animation: slideDown 0.4s ease-out;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.sg-warning-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.sg-warning-icon {
+  font-size: 26px;
+}
+
+.sg-warning-text {
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  opacity: 0.95;
+}
+
+.sg-warning-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.sg-warning-btn {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sg-warning-btn-hide {
+  background: rgba(255, 255, 255, 0.95);
+  color: #d97706;
+}
+
+.sg-warning-btn-hide:hover {
+  background: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.sg-warning-btn-dismiss {
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.sg-warning-btn-dismiss:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Scrollbar personalizzata */
+.sg-tips-list::-webkit-scrollbar,
+.sg-expanded-content::-webkit-scrollbar {
+  width: 10px; /* ✅ Più larga */
+}
+
+.sg-tips-list::-webkit-scrollbar-track,
+.sg-expanded-content::-webkit-scrollbar-track {
+  background: var(--sg-bg-secondary);
+  border-radius: 10px;
+}
+
+.sg-tips-list::-webkit-scrollbar-thumb,
+.sg-expanded-content::-webkit-scrollbar-thumb {
+  background: var(--sg-bg-gradient);
+  border-radius: 10px;
+}
+
+.sg-tips-list::-webkit-scrollbar-thumb:hover,
+.sg-expanded-content::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, var(--sg-secondary) 0%, var(--sg-primary) 100%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #salesgenius-widget {
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .salesgenius-expanded .sg-widget-container {
+    width: calc(100vw - 20px);
+    max-width: 420px;
+  }
+}
+
+/* Animazioni */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+#salesgenius-widget {
+  animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}

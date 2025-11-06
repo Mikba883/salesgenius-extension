@@ -1,0 +1,64 @@
+{
+  "manifest_version": 3,
+  "name": "SalesGenius Real-time AI Sales Coach",
+  "version": "2.2.4",
+  "description": "Real-time AI coaching for sales calls on Zoom, Google Meet, Teams and more. Get instant suggestions powered by advanced AI.",
+  "permissions": [
+    "desktopCapture",
+    "offscreen",
+    "storage",
+    "tabs",
+    "notifications",
+    "scripting",
+    "alarms"
+  ],
+  "host_permissions": [
+    "https://zoom.us/*",
+    "https://*.zoom.us/*",
+    "https://meet.google.com/*",
+    "https://teams.microsoft.com/*",
+    "https://*.webex.com/*",
+    "https://whereby.com/*",
+    "https://meet.jit.si/*",
+    "https://salesgenius-backend.onrender.com/*",
+    "https://obtwneqykrktfedopxwz.supabase.co/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://zoom.us/*",
+        "https://*.zoom.us/*",
+        "https://meet.google.com/*",
+        "https://teams.microsoft.com/*",
+        "https://*.webex.com/*",
+        "https://whereby.com/*",
+        "https://meet.jit.si/*"
+      ],
+      "js": ["content.js"],
+      "css": ["styles/floating-widget.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "assets/icons/icon-16.png",
+      "48": "assets/icons/icon-48.png",
+      "128": "assets/icons/icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "assets/icons/icon-16.png",
+    "48": "assets/icons/icon-48.png",
+    "128": "assets/icons/icon-128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/*", "styles/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
