@@ -1,10 +1,45 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>SalesGenius Audio Capture</title>
-</head>
-<body>
-  <script src="offscreen.js"></script>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SalesGenius Offscreen Audio Processor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: #000;
+        color: #0f0;
+        font-family: monospace;
+        font-size: 12px;
+      }
+      #status {
+        padding: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="status">🎧 SalesGenius Offscreen Active</div>
+
+    <script>
+      console.log("✅ Offscreen document loaded (SalesGenius)");
+
+      // Mantieni il contesto vivo finché l'estensione è attiva
+      chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+        if (msg.type === "ping") {
+          console.log("📡 Received ping from background");
+          sendResponse({ type: "pong", ok: true });
+        }
+
+        // Puoi anche gestire messaggi specifici se servisse
+        if (msg.type === "start_capture") {
+          console.log("🎙️ Offscreen received start_capture:", msg);
+          sendResponse({ success: true });
+        }
+      });
+    </script>
+
+    <!-- Backup: carica script esterno se serve -->
+    <script src="offscreen.js"></script>
+  </body>
 </html>
